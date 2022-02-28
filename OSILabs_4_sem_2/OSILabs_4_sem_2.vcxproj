@@ -35,15 +35,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{3464fcad-518d-4969-97fd-8446f6c16d03}</ProjectGuid>
+    <ProjectGuid>{e9b2c4cf-68ef-4638-b2b7-80b1653a0f8a}</ProjectGuid>
     <Keyword>Linux</Keyword>
-    <RootNamespace>OSILAbs_4_sem</RootNamespace>
+    <RootNamespace>OSILabs_4_sem_2</RootNamespace>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <ApplicationType>Linux</ApplicationType>
     <ApplicationTypeRevision>1.0</ApplicationTypeRevision>
     <TargetLinuxPlatform>Generic</TargetLinuxPlatform>
     <LinuxProjectType>{D51BCBC9-82E9-4017-911E-C93873C4EA2B}</LinuxProjectType>
-    <ProjectName>OSILabs_4_sem</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
@@ -80,11 +79,7 @@
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <AdditionalOptions>-g %(AdditionalOptions)</AdditionalOptions>
-    </ClCompile>
-  </ItemDefinitionGroup>
+  <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>
