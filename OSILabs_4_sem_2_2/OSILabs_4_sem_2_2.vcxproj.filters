@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="files">
+      <UniqueIdentifier>{9336fda0-b447-4a55-a3a7-5e3d44473613}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="bin\x64\Debug\files\0.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\1.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\2.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\3.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\5.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\4.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\6.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\7.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\8.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\9.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\10.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\11.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\12.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\13.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\14.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\15.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\16.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\17.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+    <Text Include="bin\x64\Debug\files\19.crypt.txt">
+      <Filter>files</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
