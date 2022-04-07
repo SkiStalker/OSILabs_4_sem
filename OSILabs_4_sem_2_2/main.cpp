@@ -152,7 +152,7 @@ int tryEncryptByHemming(const vector<uchar>& data, int szBlock)
 {
 	int cnt = findAdditonalBitsCount(szBlock);
 	vector<vector<Bit>> bits = readBits(data, szBlock + cnt + 1, false);
-
+	int res = 0;
 
 	for (auto& t : bits)
 	{
@@ -163,13 +163,13 @@ int tryEncryptByHemming(const vector<uchar>& data, int szBlock)
 
 		if (pos)
 		{
-			if (checkOdd(t))
+			if (!checkOdd(t))
 			{
-				return 2;
+				res += 2;
 			}
 			else
 			{
-				return 1;
+				res += 1;
 			}
 		}
 	}

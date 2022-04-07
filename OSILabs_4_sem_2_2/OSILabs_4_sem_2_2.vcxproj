@@ -77,27 +77,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="bin\x64\Debug\files\0.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\1.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\10.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\11.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\12.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\13.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\14.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\15.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\16.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\17.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\19.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\2.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\3.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\4.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\5.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\6.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\7.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\8.crypt.txt" />
-    <Text Include="bin\x64\Debug\files\9.crypt.txt" />
-  </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

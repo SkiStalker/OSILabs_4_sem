@@ -156,23 +156,23 @@ vector<uchar> encryptByHemming(const vector<uchar>& data, int szBlock)
 		printBits(bits);
 	}
 
-	for (auto& t : bits)
+	for (int i = 0; i < bits.size(); i++)
 	{
 		int pos = 0;
-		auto pows = findChangeAddBit(t, cnt);
+		auto pows = findChangeAddBit(bits[i], cnt);
 
 		pos = accumulate(pows.begin(), pows.end(), 0);
 
 		if (pos)
 		{
-			if (checkOdd(t))
+			if (!checkOdd(bits[i]))
 			{
 				cout << "Two error bits" << endl;
 			}
 			else
 			{
 				cout << "Error bit : " << pos << endl;
-				t[pos].i ^= t[pos].i;
+				bits[i][pos].i = !bits[i][pos].i;
 			}
 		}
 	}
@@ -234,7 +234,7 @@ vector<uchar> cryptByHemming(const vector<uchar>& data, int szBlock)
 		int pow = 0;
 		for (int i = 0, j = 0; i < t.size() + cnt; i++)
 		{
-			if ((i + 1) == 1 << pow)
+			if ((i + 1) == (1 << pow))
 			{
 				pow++;
 				formattedBits.back().push_back(0);
@@ -250,8 +250,8 @@ vector<uchar> cryptByHemming(const vector<uchar>& data, int szBlock)
 			formattedBits.back()[pos] = 1;
 		}
 
-		if (checkOdd(t))
-			t.front() = 1;
+		if (checkOdd(formattedBits.back()))
+			formattedBits.back().front() = 1;
 	}
 
 	if (DEBUG)
@@ -310,6 +310,38 @@ void writeBytes(ofstream& out, const vector<uchar> bytes)
 	}
 }
 
+int run(const string& inName, const string& outName, const bool crypt, const int& szBlock)
+{
+	ifstream in(inName);
+
+	if (!in.is_open())
+	{
+		cout << "File not exist" << endl;
+		return -1;
+	}
+
+	ofstream out(outName);
+
+	if (!out.is_open())
+	{
+		cout << "Can not open out file" << endl;
+		return -1;
+	}
+
+	vector<uchar> buf;
+	readBytes(in, buf);
+	if (crypt)
+	{
+		writeBytes(out, cryptByHemming(buf, szBlock));
+	}
+	else
+	{
+		writeBytes(out, encryptByHemming(buf, szBlock));
+	}
+	in.close();
+	out.close();
+}
+
 int main(int argc, char* argv[])
 {
 
@@ -320,6 +352,8 @@ int main(int argc, char* argv[])
 		readBytes(in, buf);
 
 		auto res = cryptByHemming(buf, 13);
+		res.front() -= 1;
+		res[res.size() - 2] += 1;
 
 		res = encryptByHemming(res, 13);
 
@@ -335,35 +369,8 @@ int main(int argc, char* argv[])
 		bool crypt;
 
 		readArgs(argc, argv, szBlock, inName, outName, crypt);
-
-		ifstream in(inName);
-
-		if (!in.is_open())
-		{
-			cout << "File not exist" << endl;
-			return -1;
-		}
-
-		ofstream out(outName);
-
-		if (!out.is_open())
-		{
-			cout << "Can not open out file" << endl;
-			return -1;
-		}
-
-		vector<uchar> buf;
-		readBytes(in, buf);
-		if (crypt)
-		{
-			writeBytes(out, cryptByHemming(buf, szBlock));
-		}
-		else
-		{
-			writeBytes(out, encryptByHemming(buf, szBlock));
-		}
-		in.close();
-		out.close();
+		run(inName, outName, crypt, szBlock);
+		
 	}
 	return 0;
 }
