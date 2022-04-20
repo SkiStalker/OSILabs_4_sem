@@ -12,9 +12,9 @@ using namespace std;
 class Expression
 {
 private:
-	map<string, PData> vars;
+	vector<pair<string, vector<PData>>> vars;
 	vector<int> boolTable;
-	PData data = new Data[1024];
+	Data data[1024];
 public:
 	Expression(const string& str)
 	{
@@ -23,28 +23,42 @@ public:
 
 		for (int i = 0; i < len; i++)
 		{
-			if (vars.find(data->name) == vars.end())
+			if (data[i].is_var)
 			{
-				vars[data->name] = data;
+				auto findVar = find_if(vars.begin(), vars.end(), [&str](const pair<string, vector<PData>>& a) {return a.first == str; });
+				if (findVar == vars.end())
+				{
+					vars.push_back(make_pair(data[i].name, vector<PData>()));
+					vars.back().second.push_back(&data[i]);
+				}
+				else
+				{
+					findVar->second.push_back(&data[i]);
+				}
 			}
 		}
 
-		for (int i = 0; i < (vars.size() << 1); i++)
+		int pow = 1 << vars.size();
+		for (int i = 0; i < pow; i++)
 		{
-			int k = 0;
-			for (auto& var : vars)
+			int k = i;
+			for (auto var = vars.rbegin(); var != vars.rend(); var++)
 			{
-				var.second->value = (i & (k << 1)) >> k;
-				if (var.second->is_negative)
-					var.second->value = !var.second->value;
-				k++;
+				int val = k % 2;
+				for (int j = 0; j < var->second.size(); j++)
+				{
+					var->second[j]->value = val;
+					if (var->second[j]->is_negative)
+						var->second[j]->value = !var->second[j]->value;
+				}
+				k /= 2;
 			}
 
 			int res;
 			count(data, len, &res);
 			boolTable.push_back(res);
 		}
-
+		int a = 12;
 	}
 
 	bool operator==(const Expression& other) const
@@ -55,14 +69,14 @@ public:
 
 int main(int argc, char* argv[])
 {
-	if (argc < 3)
-	{
-		cout << "Wrong args" << endl;
-		return -1;
-	}
+	//if (argc < 3)
+	//{
+	//	cout << "Wrong args" << endl;
+	//	return -1;
+	//}
 
-	string str1 = argv[1];
-	string str2 = argv[2];
+	string str1 = "A&B&C|D"; //argv[1];
+	string str2 = "A&B&D|C";//argv[2];
 
 	cout << (Expression(str1) == Expression(str2)) << endl;
 

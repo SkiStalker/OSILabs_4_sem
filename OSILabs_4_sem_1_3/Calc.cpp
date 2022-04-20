@@ -271,7 +271,6 @@ int count(PData data, int len, int* res)
 			_stack.pop();
 			b = _stack.top();
 			_stack.pop();
-			CreateVar(&a, a.name);
 			a.value = calc(a.value, b.value, data[i++].operand);
 			_stack.push(a);
 		}

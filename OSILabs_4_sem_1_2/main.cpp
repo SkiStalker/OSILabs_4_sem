@@ -165,6 +165,7 @@ vector<uchar> encryptByHemming(const vector<uchar>& data, int szBlock)
 
 		if (pos)
 		{
+			cout << "Block " << i << " - ";
 			if (!checkOdd(bits[i]))
 			{
 				cout << "Two error bits" << endl;
