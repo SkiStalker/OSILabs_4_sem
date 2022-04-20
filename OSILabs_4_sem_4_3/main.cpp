@@ -6,27 +6,47 @@ using namespace std;
 class SyncDLatch
 {
 private:
+	bool Q = false;
 	bool sync = 0;
+	thread thr;
 	void tactGen()
 	{
-		sync++;
-		this_thread::sleep_for(chrono::seconds(1));
+		while (true)
+		{
+			cout << Q << endl;
+			sync++;
+			this_thread::sleep_for(chrono::seconds(1));
+		}
 	}
 public:
 	SyncDLatch()
 	{
-		thread(&SyncDLatch::tactGen, this).detach();
+		thr = thread(&SyncDLatch::tactGen, this);
+		thr.detach();
 	}
-	bool Q = false;
 	void setD(bool D)
 	{
-		inline bool S = D;
-		inline bool R = !D;
+		bool S = D;
+		bool R = !D;
 		Q = !(!(sync && S || Q) || sync && R);
 	}
 };
 
 int main()
 {
+	SyncDLatch sd;
+
+	while (true)
+	{
+		string buf;
+
+		getline(cin, buf);
+
+		if (buf == "0")
+			sd.setD(0);
+		else if (buf == "1")
+			sd.setD(1);
+
+	}
 	return 0;
 }

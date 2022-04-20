@@ -42,25 +42,25 @@ void readArgs(int argc, char* argv[], bool& F0, bool& F1, bool& A, bool& B, bool
 
 void ALD(bool f0, bool f1, bool a, bool b, bool ena, bool enb, bool inva, bool inShift, bool& out, bool& outShift)
 {
-	inline bool resolLine1 = !f0 && !f1;
-	inline bool resolLine2 = !f0 && f1;
-	inline bool resolLine3 = f0 && !f1;
-	inline bool resolLine4 = f0 && f1;
-	inline bool inA = inva ^ (a && ena);
-	inline bool inB = b && enb;
-	inline bool aAndB = inA && inB;
-	inline bool aAndBResolve = aAndB && resolLine1;
-	inline bool aOrB = inA || inB;
-	inline bool aOrBResolve = aOrB && resolLine2;
-	inline bool notB = !inB;
-	inline bool notBResolve = notB && resolLine3;
-	inline bool aXorB = inA ^ inB;
-	inline bool aXorBXorInShift = aXorB ^ inShift;
-	inline bool aXorBXorInShiftResolve = aXorBXorInShift && resolLine4;
-	inline bool aPlusBResolve = aAndB && resolLine4;
-	inline bool aXorBResolve = aXorBXorInShift && resolLine4;
+	bool resolLine1 = !f0 && !f1;
+	bool resolLine2 = !f0 && f1;
+	bool resolLine3 = f0 && !f1;
+	bool resolLine4 = f0 && f1;
+	bool inA = inva ^ (a && ena);
+	bool inB = b && enb;
+	bool aAndB = inA && inB;
+	bool aAndBResolve = aAndB && resolLine1;
+	bool aOrB = inA || inB;
+	bool aOrBResolve = aOrB && resolLine2;
+	bool notB = !inB;
+	bool notBResolve = notB && resolLine3;
+	bool aXorB = inA ^ inB;
+	bool aXorBXorInShift = aXorB ^ inShift;
+	bool aXorBXorInShiftResolve = aXorBXorInShift && resolLine4;
+	bool aPlusBResolve = aAndB && resolLine4;
+	bool aXorBAndInShiftResolve = aXorB && inShift && resolLine4;
 
-	outShift = (aXorBXorInShiftResolve || aXorBResolve);
+	outShift = (aPlusBResolve || aXorBAndInShiftResolve);
 
 	out = aAndBResolve || aOrBResolve || notBResolve || aXorBXorInShiftResolve;
 }

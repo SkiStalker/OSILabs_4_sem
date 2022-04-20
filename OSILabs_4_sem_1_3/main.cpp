@@ -65,6 +65,16 @@ public:
 	{
 		return boolTable == other.boolTable;
 	}
+
+	void showBoolTable()
+	{
+
+
+		for (int i = 0; i < boolTable.size(); i++)
+		{
+			cout << i << " : " << boolTable[i] << endl;
+		}
+	}
 };
 
 int main(int argc, char* argv[])

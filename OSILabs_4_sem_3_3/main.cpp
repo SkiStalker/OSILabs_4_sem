@@ -7,30 +7,30 @@ using uchar = unsigned char;
 
 void ALD(bool f0, bool f1, bool a, bool b, bool ena, bool enb, bool inva, bool inShift, bool& out, bool& outShift)
 {
-	inline bool resolLine1 = !f0 && !f1;
-	inline bool resolLine2 = !f0 && f1;
-	inline bool resolLine3 = f0 && !f1;
-	inline bool resolLine4 = f0 && f1;
-	inline bool inA = inva ^ (a && ena);
-	inline bool inB = b && enb;
-	inline bool aAndB = inA && inB;
-	inline bool aAndBResolve = aAndB && resolLine1;
-	inline bool aOrB = inA || inB;
-	inline bool aOrBResolve = aOrB && resolLine2;
-	inline bool notB = !inB;
-	inline bool notBResolve = notB && resolLine3;
-	inline bool aXorB = inA ^ inB;
-	inline bool aXorBXorInShift = aXorB ^ inShift;
-	inline bool aXorBXorInShiftResolve = aXorBXorInShift && resolLine4;
-	inline bool aPlusBResolve = aAndB && resolLine4;
-	inline bool aXorBResolve = aXorBXorInShift && resolLine4;
+	bool resolLine1 = !f0 && !f1;
+	bool resolLine2 = !f0 && f1;
+	bool resolLine3 = f0 && !f1;
+	bool resolLine4 = f0 && f1;
+	bool inA = inva ^ (a && ena);
+	bool inB = b && enb;
+	bool aAndB = inA && inB;
+	bool aAndBResolve = aAndB && resolLine1;
+	bool aOrB = inA || inB;
+	bool aOrBResolve = aOrB && resolLine2;
+	bool notB = !inB;
+	bool notBResolve = notB && resolLine3;
+	bool aXorB = inA ^ inB;
+	bool aXorBXorInShift = aXorB ^ inShift;
+	bool aXorBXorInShiftResolve = aXorBXorInShift && resolLine4;
+	bool aPlusBResolve = aAndB && resolLine4;
+	bool aXorBAndInShiftResolve = aXorB && inShift && resolLine4;
 
-	outShift = (aXorBXorInShiftResolve || aXorBResolve);
+	outShift = (aPlusBResolve || aXorBAndInShiftResolve);
 
 	out = aAndBResolve || aOrBResolve || notBResolve || aXorBXorInShiftResolve;
 }
 
-unsigned char OR(uchar _right, uchar _left)
+uchar OR(uchar _right, uchar _left)
 {
 	uchar res = 0;
 
@@ -40,18 +40,14 @@ unsigned char OR(uchar _right, uchar _left)
 		bool shift = 0;
 
 		ALD(0, 1, _right & 1, _left & 1, 1, 1, 0, 0, out, shift);
-		res |= out;
-		if (i < 7)
-		{
-			res <<= 1;
-			_right <<= 1;
-			_left <<= 1;
-		}
+		res |= (out << i);
+		_right >>= 1;
+		_left >>= 1;
 	}
 	return res;
 }
 
-unsigned char AND(uchar _right, uchar _left)
+uchar AND(uchar _right, uchar _left)
 {
 	uchar res = 0;
 
@@ -61,18 +57,14 @@ unsigned char AND(uchar _right, uchar _left)
 		bool shift = 0;
 
 		ALD(0, 0, _right & 1, _left & 1, 1, 1, 0, 0, out, shift);
-		res |= out;
-		if (i < 7)
-		{
-			res <<= 1;
-			_right <<= 1;
-			_left <<= 1;
-		}
+		res |= (out << i);
+		_right >>= 1;
+		_left >>= 1;
 	}
 	return res;
 }
 
-unsigned char NOT(uchar _right)
+uchar NOT(uchar _right)
 {
 	uchar res = 0;
 
@@ -82,17 +74,13 @@ unsigned char NOT(uchar _right)
 		bool shift = 0;
 
 		ALD(1, 0, _right & 1, _right & 1, 1, 1, 0, 0, out, shift);
-		res |= out;
-		if (i < 7)
-		{
-			res <<= 1;
-			_right <<= 1;
-		}
+		res |= (out << i);
+		_right >>= 1;
 	}
 	return res;
 }
 
-unsigned char PLUS(uchar _right, uchar _left)
+uchar PLUS(uchar _right, uchar _left)
 {
 	uchar res = 0;
 
@@ -103,13 +91,9 @@ unsigned char PLUS(uchar _right, uchar _left)
 		bool outShift;
 
 		ALD(1, 1, _right & 1, _left & 1, 1, 1, 0, inShift, out, outShift);
-		res |= out;
-		if (i < 7)
-		{
-			res <<= 1;
-			_right <<= 1;
-			_left <<= 1;
-		}
+		res |= (out << i);
+		_right >>= 1;
+		_left >>= 1;
 		inShift = outShift;
 	}
 	return res;
@@ -117,6 +101,7 @@ unsigned char PLUS(uchar _right, uchar _left)
 
 int main()
 {
-
-    return 0;
+	uchar res = PLUS(5, 2);
+	cout << res << endl;
+	return 0;
 }
